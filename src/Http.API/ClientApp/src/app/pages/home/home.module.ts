@@ -5,6 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
 import { ShareModule } from 'src/app/share/share.module';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -14,7 +15,10 @@ import { ShareModule } from 'src/app/share/share.module';
   ],
   imports: [
     ShareModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ]
 })
 export class HomeModule { }
