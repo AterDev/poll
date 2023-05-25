@@ -12,6 +12,6 @@
   "UpdatedTimeName": "UpdatedTime",
   "IsSplitController": false,
   "Version": "7.1",
-  "SwaggerPath": null,
-  "WebAppPath": null
+  "SwaggerPath": "http://localhost:5002/swagger/client/swagger.json",
+  "WebAppPath": "D:\\codes\\poll\\src/Http.API\\ClientApp\\src\\app\\share"
 }

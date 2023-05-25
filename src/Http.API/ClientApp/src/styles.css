@@ -1,44 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/bootstrap-grid.min.css';
 
+:root {
+  --primary-color: #6840d6;
+}
+
+.mat-toolbar.mat-primary {
+  background-color: var(--primary-color)
+}
+
+.mdc-button.mat-primary {
+  --mdc-filled-button-container-color: var(--primary-color);
+}
+
 html,
 body {
-    height: 100%;
-    font-family: sans-serif, "微软雅黑", Tahoma, Geneva, Verdana;
+  height: 100%;
+  font-family: sans-serif, "微软雅黑", Tahoma, Geneva, Verdana;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 img {
-    object-fit: cover;
+  object-fit: cover;
 }
 
 .loading {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .avatar {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .w-100 {
-    width: 100%;
+  width: 100%;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .ck-editor__editable_inline {
-    min-height: 500px;
+  min-height: 500px;
 }
 
 .mat-icon {
   margin-right: 4px;
   vertical-align: middle;
 }
+
 .gap-1 {
   gap: 8px;
 }

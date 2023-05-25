@@ -22,26 +22,6 @@ export class LoginComponent implements OnInit {
   get username() { return this.loginForm.get('username'); }
   get password() { return this.loginForm.get('password'); }
   ngOnInit(): void {
-    // const token = this.oauthService.getAccessToken();
-    // const cliams = this.oauthService.getIdentityClaims();
-    // if (token && cliams) {
-    //   this.router.navigateByUrl('/index');
-    // }
-
-    // this.oauthService.events.subscribe(event => {
-    //   if (event instanceof OAuthErrorEvent) {
-    //     // TODO:处理错误
-    //     console.error(event);
-    //   } else {
-    //     if (event.type === 'token_received' || event.type === 'token_refreshed') {
-    //       this.oauthService.loadUserProfile()
-    //         .then(() => {
-    //           this.router.navigateByUrl('/index');
-    //         });
-    //     }
-    //   }
-    // });
-
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)])
