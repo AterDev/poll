@@ -1,11 +1,13 @@
 global using System.Text;
 global using System.Text.Json.Serialization;
+global using Application.AppConst;
 global using Application.IManager;
 global using Application.Implement;
 global using Application.Interface;
 global using Application.Services;
 global using Core.Const;
 global using Core.Entities;
+global using Core.Entities.PollEntities;
 global using Core.Entities.SystemEntities;
 global using Core.Models;
 global using Core.Utils;

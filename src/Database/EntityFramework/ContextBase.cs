@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.Entities.PollEntities;
 using Core.Entities.SystemEntities;
 using Core.Models;
 
@@ -14,6 +15,14 @@ public class ContextBase : DbContext
     public DbSet<RolePermission> RolePermissions { get; set; }
     public DbSet<SystemLogs> SystemLogs { get; set; }
     public DbSet<SystemOrganization> SystemOrganizations { get; set; }
+
+    #region poll entities
+    public DbSet<PollIssue> PollIssues { get; set; }
+    public DbSet<PollOption> PollOptions { get; set; }
+    public DbSet<PollCategory> PollCategories { get; set; }
+    public DbSet<PollTag> PollTags { get; set; }
+    #endregion
+
 
     public DbSet<User> Users { get; set; }
 

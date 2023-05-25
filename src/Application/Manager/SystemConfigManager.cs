@@ -1,13 +1,18 @@
+using Application.Implement;
+using Application.IManager;
 using Share.Models.SystemConfigDtos;
 
 namespace Application.Manager;
 
 public class SystemConfigManager : DomainManagerBase<SystemConfig, SystemConfigUpdateDto, SystemConfigFilterDto, SystemConfigItemDto>, ISystemConfigManager
 {
+
     public SystemConfigManager(
-        DataStoreContext storeContext,
-        IUserContext userContext) : base(storeContext)
+        DataStoreContext storeContext, 
+        ILogger<SystemConfigManager> logger,
+        IUserContext userContext) : base(storeContext, logger)
     {
+
         _userContext = userContext;
     }
 
@@ -18,14 +23,14 @@ public class SystemConfigManager : DomainManagerBase<SystemConfig, SystemConfigU
     /// <returns></returns>
     public Task<SystemConfig> CreateNewEntityAsync(SystemConfigAddDto dto)
     {
-        SystemConfig entity = dto.MapTo<SystemConfigAddDto, SystemConfig>();
+        var entity = dto.MapTo<SystemConfigAddDto, SystemConfig>();
         // other required props
         return Task.FromResult(entity);
     }
 
     public override async Task<SystemConfig> UpdateAsync(SystemConfig entity, SystemConfigUpdateDto dto)
     {
-        return await base.UpdateAsync(entity, dto);
+    return await base.UpdateAsync(entity, dto);
     }
 
     public override async Task<PageList<SystemConfigItemDto>> FilterAsync(SystemConfigFilterDto filter)
@@ -43,7 +48,7 @@ public class SystemConfigManager : DomainManagerBase<SystemConfig, SystemConfigU
     /// <returns></returns>
     public async Task<SystemConfig?> GetOwnedAsync(Guid id)
     {
-        IQueryable<SystemConfig> query = Command.Db.Where(q => q.Id == id);
+        var query = Command.Db.Where(q => q.Id == id);
         // 获取用户所属的对象
         // query = query.Where(q => q.User.Id == _userContext.UserId);
         return await query.FirstOrDefaultAsync();

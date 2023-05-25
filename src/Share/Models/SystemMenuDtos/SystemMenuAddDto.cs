@@ -43,5 +43,8 @@ public class SystemMenuAddDto
     /// 是否显示
     /// </summary>
     public bool Hidden { get; set; } = true;
-
+    public Guid? SystemMenuId { get; set; }
+    public List<Guid>? SystemMenuIds { get; set; }
+    public List<Guid>? SystemRoleIds { get; set; }
+    
 }

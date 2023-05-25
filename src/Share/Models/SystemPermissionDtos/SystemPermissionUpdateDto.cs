@@ -1,3 +1,4 @@
+using Core.Entities.SystemEntities;
 namespace Share.Models.SystemPermissionDtos;
 /// <summary>
 /// 权限更新时请求结构
@@ -12,6 +13,8 @@ public class SystemPermissionUpdateDto
     /// </summary>
     [MaxLength(200)]
     public string? PermissionPath { get; set; }
-    public Guid? ParentId { get; set; }
-
+    public Guid? SystemPermissionId { get; set; }
+    public List<Guid>? SystemRoleIds { get; set; }
+    public List<Guid>? RolePermissionIds { get; set; }
+    
 }

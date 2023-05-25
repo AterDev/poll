@@ -1,3 +1,4 @@
+using Core.Entities;
 namespace Share.Models.UserDtos;
 /// <summary>
 /// 用户账户添加时请求结构
@@ -43,5 +44,5 @@ public class UserAddDto
     /// </summary>
     [MaxLength(200)]
     public string? Avatar { get; set; }
-
+    
 }

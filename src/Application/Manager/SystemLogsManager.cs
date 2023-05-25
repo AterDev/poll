@@ -1,14 +1,18 @@
+using Application.Implement;
+using Application.IManager;
 using Share.Models.SystemLogsDtos;
 
 namespace Application.Manager;
 
 public class SystemLogsManager : DomainManagerBase<SystemLogs, SystemLogsUpdateDto, SystemLogsFilterDto, SystemLogsItemDto>, ISystemLogsManager
 {
+
     public SystemLogsManager(
-        DataStoreContext storeContext,
+        DataStoreContext storeContext, 
         ILogger<SystemLogsManager> logger,
         IUserContext userContext) : base(storeContext, logger)
     {
+
         _userContext = userContext;
     }
 
@@ -19,8 +23,8 @@ public class SystemLogsManager : DomainManagerBase<SystemLogs, SystemLogsUpdateD
     /// <returns></returns>
     public Task<SystemLogs> CreateNewEntityAsync(SystemLogsAddDto dto)
     {
-        SystemLogs entity = dto.MapTo<SystemLogsAddDto, SystemLogs>();
-        Command.Db.Entry(entity).Property("SystemUserId").CurrentValue = _userContext!.UserId!.Value;
+        var entity = dto.MapTo<SystemLogsAddDto, SystemLogs>();
+        Command.Db.Entry(entity).Property("SystemUserId").CurrentValue = _userContext.UserId!.Value;
         // or entity.SystemUserId = _userContext.UserId!.Value;
         // other required props
         return Task.FromResult(entity);
@@ -28,7 +32,7 @@ public class SystemLogsManager : DomainManagerBase<SystemLogs, SystemLogsUpdateD
 
     public override async Task<SystemLogs> UpdateAsync(SystemLogs entity, SystemLogsUpdateDto dto)
     {
-        return await base.UpdateAsync(entity, dto);
+    return await base.UpdateAsync(entity, dto);
     }
 
     public override async Task<PageList<SystemLogsItemDto>> FilterAsync(SystemLogsFilterDto filter)
@@ -49,7 +53,7 @@ public class SystemLogsManager : DomainManagerBase<SystemLogs, SystemLogsUpdateD
     /// <returns></returns>
     public async Task<SystemLogs?> GetOwnedAsync(Guid id)
     {
-        IQueryable<SystemLogs> query = Command.Db.Where(q => q.Id == id);
+        var query = Command.Db.Where(q => q.Id == id);
         // 获取用户所属的对象
         // query = query.Where(q => q.User.Id == _userContext.UserId);
         return await query.FirstOrDefaultAsync();

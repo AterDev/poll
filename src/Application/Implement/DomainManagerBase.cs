@@ -88,6 +88,13 @@ public partial class DomainManagerBase<TEntity, TUpdate, TFilter, TItem>
         return res;
     }
 
+    [Obsolete("use GetCurrentAsync")]
+    public virtual async Task<TEntity?> GetCurrent(Guid id, params string[]? navigations)
+    {
+        return await Command.FindAsync(e => e.Id == id, navigations);
+    }
+
+
     public virtual async Task<TEntity> UpdateAsync(TEntity entity, TUpdate dto)
     {
         _ = entity.Merge(dto, false);

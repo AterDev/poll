@@ -17,7 +17,7 @@ namespace Http.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -102,6 +102,91 @@ namespace Http.API.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("SystemRoleSystemUser");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollCategory", b =>
+                {
+                    b.HasBaseType("Core.Models.EntityBase");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.ToTable("PollCategories");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollIssue", b =>
+                {
+                    b.HasBaseType("Core.Models.EntityBase");
+
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<DateTimeOffset>("EffectiveEndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("EffectiveStartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IssueNo")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<int>("PollType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("PollIssues");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollOption", b =>
+                {
+                    b.HasBaseType("Core.Models.EntityBase");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<Guid>("IssueId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("VoteCount")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("IssueId");
+
+                    b.ToTable("PollOptions");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollTag", b =>
+                {
+                    b.HasBaseType("Core.Models.EntityBase");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<Guid>("PollIssueId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("PollIssueId");
+
+                    b.ToTable("PollTags");
                 });
 
             modelBuilder.Entity("Core.Entities.SystemEntities.RolePermission", b =>
@@ -509,6 +594,37 @@ namespace Http.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Core.Entities.PollEntities.PollIssue", b =>
+                {
+                    b.HasOne("Core.Entities.PollEntities.PollCategory", "Category")
+                        .WithMany("Issues")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollOption", b =>
+                {
+                    b.HasOne("Core.Entities.PollEntities.PollIssue", "Issue")
+                        .WithMany("Options")
+                        .HasForeignKey("IssueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Issue");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollTag", b =>
+                {
+                    b.HasOne("Core.Entities.PollEntities.PollIssue", "PollIssue")
+                        .WithMany("Tags")
+                        .HasForeignKey("PollIssueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PollIssue");
+                });
+
             modelBuilder.Entity("Core.Entities.SystemEntities.RolePermission", b =>
                 {
                     b.HasOne("Core.Entities.SystemEntities.SystemPermission", "Permission")
@@ -564,6 +680,18 @@ namespace Http.API.Migrations
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollCategory", b =>
+                {
+                    b.Navigation("Issues");
+                });
+
+            modelBuilder.Entity("Core.Entities.PollEntities.PollIssue", b =>
+                {
+                    b.Navigation("Options");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("Core.Entities.SystemEntities.SystemMenu", b =>

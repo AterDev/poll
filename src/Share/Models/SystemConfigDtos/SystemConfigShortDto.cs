@@ -1,3 +1,4 @@
+using Core.Entities.SystemEntities;
 namespace Share.Models.SystemConfigDtos;
 /// <summary>
 /// 系统配置概要
@@ -23,5 +24,5 @@ public class SystemConfigShortDto
     public Guid Id { get; set; } = Guid.NewGuid();
     public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedTime { get; set; } = DateTimeOffset.UtcNow;
-
+    
 }

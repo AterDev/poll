@@ -37,7 +37,7 @@ public class RestControllerBase<TManager> : RestControllerBase
 /// 用户端权限控制器
 /// </summary>
 /// <typeparam name="TManager"></typeparam>
-[Authorize(Const.User)]
+//[Authorize(Const.User)]
 [ApiExplorerSettings(GroupName = "client")]
 public class ClientControllerBase<TManager> : RestControllerBase
      where TManager : class

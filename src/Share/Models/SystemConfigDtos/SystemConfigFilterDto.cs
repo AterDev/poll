@@ -1,3 +1,4 @@
+using Core.Entities.SystemEntities;
 namespace Share.Models.SystemConfigDtos;
 /// <summary>
 /// 系统配置查询筛选
@@ -20,5 +21,5 @@ public class SystemConfigFilterDto : FilterBase
     /// 组
     /// </summary>
     public string? GroupName { get; set; }
-
+    
 }

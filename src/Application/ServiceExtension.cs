@@ -41,9 +41,12 @@ public static class ServiceExtension
         {
             options.SetResourceBuilder(resource);
             options.AddOtlpExporter(otlpOptions);
-            options.ParseStateValues = true;
-            options.IncludeFormattedMessage = true;
-            options.IncludeScopes = true;
+            //options.ParseStateValues = true;
+            //options.IncludeFormattedMessage = true;
+            //options.IncludeScopes = true;
+#if DEBUG
+            options.AddConsoleExporter();
+#endif
         });
         // 返回内容最大长度截取
         int maxLength = 2048;

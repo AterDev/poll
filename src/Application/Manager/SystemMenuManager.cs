@@ -1,13 +1,18 @@
+using Application.Implement;
+using Application.IManager;
 using Share.Models.SystemMenuDtos;
 
 namespace Application.Manager;
 
 public class SystemMenuManager : DomainManagerBase<SystemMenu, SystemMenuUpdateDto, SystemMenuFilterDto, SystemMenuItemDto>, ISystemMenuManager
 {
+
     public SystemMenuManager(
-        DataStoreContext storeContext,
-        IUserContext userContext) : base(storeContext)
+        DataStoreContext storeContext, 
+        ILogger<SystemMenuManager> logger,
+        IUserContext userContext) : base(storeContext, logger)
     {
+
         _userContext = userContext;
     }
 
@@ -18,14 +23,14 @@ public class SystemMenuManager : DomainManagerBase<SystemMenu, SystemMenuUpdateD
     /// <returns></returns>
     public Task<SystemMenu> CreateNewEntityAsync(SystemMenuAddDto dto)
     {
-        SystemMenu entity = dto.MapTo<SystemMenuAddDto, SystemMenu>();
+        var entity = dto.MapTo<SystemMenuAddDto, SystemMenu>();
         // other required props
         return Task.FromResult(entity);
     }
 
     public override async Task<SystemMenu> UpdateAsync(SystemMenu entity, SystemMenuUpdateDto dto)
     {
-        return await base.UpdateAsync(entity, dto);
+    return await base.UpdateAsync(entity, dto);
     }
 
     public override async Task<PageList<SystemMenuItemDto>> FilterAsync(SystemMenuFilterDto filter)
@@ -44,7 +49,7 @@ public class SystemMenuManager : DomainManagerBase<SystemMenu, SystemMenuUpdateD
     /// <returns></returns>
     public async Task<SystemMenu?> GetOwnedAsync(Guid id)
     {
-        IQueryable<SystemMenu> query = Command.Db.Where(q => q.Id == id);
+        var query = Command.Db.Where(q => q.Id == id);
         // 获取用户所属的对象
         // query = query.Where(q => q.User.Id == _userContext.UserId);
         return await query.FirstOrDefaultAsync();

@@ -1,20 +1,25 @@
 using Core.Entities;
+using Core.Entities.PollEntities;
 using Core.Entities.SystemEntities;
 namespace Application.Implement;
-/// <summary>
-/// 仓储上下文
-/// </summary>
 public class DataStoreContext
 {
     public QueryDbContext QueryContext { get; init; }
     public CommandDbContext CommandContext { get; init; }
 
+
+
     /// <summary>
-    /// 绑定对象
+    /// 绑在对象
     /// </summary>
     private readonly Dictionary<string, object> StoreCache = new();
 
     public DataStoreContext(
+        PollCategoryQueryStore pollCategoryQuery,
+        PollIssueQueryStore pollIssueQuery,
+        PollOptionQueryStore pollOptionQuery,
+        PollTagQueryStore pollTagQuery,
+        RolePermissionQueryStore rolePermissionQuery,
         SystemConfigQueryStore systemConfigQuery,
         SystemLogsQueryStore systemLogsQuery,
         SystemMenuQueryStore systemMenuQuery,
@@ -23,6 +28,11 @@ public class DataStoreContext
         SystemRoleQueryStore systemRoleQuery,
         SystemUserQueryStore systemUserQuery,
         UserQueryStore userQuery,
+        PollCategoryCommandStore pollCategoryCommand,
+        PollIssueCommandStore pollIssueCommand,
+        PollOptionCommandStore pollOptionCommand,
+        PollTagCommandStore pollTagCommand,
+        RolePermissionCommandStore rolePermissionCommand,
         SystemConfigCommandStore systemConfigCommand,
         SystemLogsCommandStore systemLogsCommand,
         SystemMenuCommandStore systemMenuCommand,
@@ -31,12 +41,18 @@ public class DataStoreContext
         SystemRoleCommandStore systemRoleCommand,
         SystemUserCommandStore systemUserCommand,
         UserCommandStore userCommand,
+
         QueryDbContext queryDbContext,
         CommandDbContext commandDbContext
     )
     {
         QueryContext = queryDbContext;
         CommandContext = commandDbContext;
+        AddCache(pollCategoryQuery);
+        AddCache(pollIssueQuery);
+        AddCache(pollOptionQuery);
+        AddCache(pollTagQuery);
+        AddCache(rolePermissionQuery);
         AddCache(systemConfigQuery);
         AddCache(systemLogsQuery);
         AddCache(systemMenuQuery);
@@ -45,6 +61,11 @@ public class DataStoreContext
         AddCache(systemRoleQuery);
         AddCache(systemUserQuery);
         AddCache(userQuery);
+        AddCache(pollCategoryCommand);
+        AddCache(pollIssueCommand);
+        AddCache(pollOptionCommand);
+        AddCache(pollTagCommand);
+        AddCache(rolePermissionCommand);
         AddCache(systemConfigCommand);
         AddCache(systemLogsCommand);
         AddCache(systemMenuCommand);
@@ -65,16 +86,16 @@ public class DataStoreContext
     {
         var typename = typeof(TEntity).Name + "QueryStore";
         var set = GetSet(typename);
-        return set == null
-            ? throw new ArgumentNullException($"{typename} class object not found")
+        return set == null 
+            ? throw new ArgumentNullException($"{typename} class object not found") 
             : (QuerySet<TEntity>)set;
     }
     public CommandSet<TEntity> CommandSet<TEntity>() where TEntity : EntityBase
     {
         var typename = typeof(TEntity).Name + "CommandStore";
         var set = GetSet(typename);
-        return set == null
-            ? throw new ArgumentNullException($"{typename} class object not found")
+        return set == null 
+            ? throw new ArgumentNullException($"{typename} class object not found") 
             : (CommandSet<TEntity>)set;
     }
 

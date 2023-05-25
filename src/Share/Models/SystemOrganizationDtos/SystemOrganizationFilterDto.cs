@@ -1,3 +1,4 @@
+using Core.Entities.SystemEntities;
 namespace Share.Models.SystemOrganizationDtos;
 /// <summary>
 /// 组织结构查询筛选
@@ -11,5 +12,5 @@ public class SystemOrganizationFilterDto : FilterBase
     [MaxLength(100)]
     public string? Name { get; set; }
     public Guid? ParentId { get; set; }
-
+    
 }

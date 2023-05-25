@@ -1,3 +1,4 @@
+using Core.Entities;
 namespace Share.Models.UserDtos;
 /// <summary>
 /// 用户账户查询筛选
@@ -43,5 +44,5 @@ public class UserFilterDto : FilterBase
     /// </summary>
     [MaxLength(200)]
     public string? Avatar { get; set; }
-
+    
 }

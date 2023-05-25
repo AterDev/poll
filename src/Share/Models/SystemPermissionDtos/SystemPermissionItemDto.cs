@@ -1,3 +1,4 @@
+using Core.Entities.SystemEntities;
 namespace Share.Models.SystemPermissionDtos;
 /// <summary>
 /// 权限列表元素
@@ -15,5 +16,5 @@ public class SystemPermissionItemDto
     public Guid Id { get; set; } = Guid.NewGuid();
     public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedTime { get; set; } = DateTimeOffset.UtcNow;
-
+    
 }

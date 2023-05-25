@@ -1,3 +1,4 @@
+using Core.Entities;
 namespace Share.Models.UserDtos;
 /// <summary>
 /// 用户账户更新时请求结构
@@ -43,5 +44,5 @@ public class UserUpdateDto
     /// </summary>
     [MaxLength(200)]
     public string? Avatar { get; set; }
-
+    
 }
